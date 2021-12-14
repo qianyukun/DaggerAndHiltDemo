@@ -10,3 +10,4 @@ rootProject.name = "DaggerAndHiltDemo"
 include ':app'
 include ':hiltdemo'
 include ':domain'
+include ':common_templete'

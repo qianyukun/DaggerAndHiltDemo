@@ -33,25 +33,22 @@ class LoginActivity : AppCompatActivity() {
                 when (state.loginStatus) {
                     is LoginStatus.Success -> {
                         progress.visibility = View.GONE
-                        Toast.makeText(this@LoginActivity, "Login success", Toast.LENGTH_SHORT)
-                            .show()
+                        text.text = "Login success"
                     }
                     is LoginStatus.Failed -> {
                         progress.visibility = View.GONE
-                        Toast.makeText(this@LoginActivity, "Login failed", Toast.LENGTH_SHORT)
-                            .show()
+                        text.text = "Login failed"
                     }
                     is LoginStatus.Logout -> {
                         progress.visibility = View.GONE
-                        Toast.makeText(this@LoginActivity, "Logout", Toast.LENGTH_SHORT)
-                            .show()
+                        text.text = "Logout"
                     }
                     is LoginStatus.Idle -> {
                         progress.visibility = View.GONE
-                        Toast.makeText(this@LoginActivity, "Login Idle", Toast.LENGTH_SHORT)
-                            .show()
+                        text.text = "Login Idle"
                     }
                     is LoginStatus.Loading -> {
+                        text.text = "Loading"
                         progress.visibility = View.VISIBLE
                     }
                 }
@@ -63,6 +60,9 @@ class LoginActivity : AppCompatActivity() {
                 delay(10000)
                 loginViewModel.action.send(LoginAction.DoLogoutAction)
             }
+        }
+        go_home.setOnClickListener{
+
         }
     }
 }
