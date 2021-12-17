@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.qyk.hiltdemo.R
@@ -65,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-        
+
         login.setOnClickListener {
             lifecycleScope.launch {
                 loginViewModel.action.send(LoginAction.DoLoginAction("11111", "122222"))
@@ -80,12 +81,12 @@ class LoginActivity : AppCompatActivity() {
 
         //MVVM 不带dataBinding
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-
-                counterViewModel.countFlow.collect {
+            counterViewModel
+                .countFlow
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect {
                     counter.text = "Count $it"
                 }
-            }
         }
 
         //1s内不允许重复点击，过滤了误点

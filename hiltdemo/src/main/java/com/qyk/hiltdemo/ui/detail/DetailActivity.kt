@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.qyk.hiltdemo.counter.ICounterRepository
@@ -29,14 +30,15 @@ class DetailActivity : AppCompatActivity() {
         textView = TextView(this)
         setContentView(textView)
         lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                println("aaaaaaaaa")
-                counterRepository.countFlow.collect {
+            println("aaaaaaaaa")
+            counterRepository
+                .countFlow
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect {
                     println(it)
                     textView.text = it.toString()
                 }
-                println("bbbbbb")
-            }
+            println("bbbbbb")
         }
     }
 }
