@@ -1,4 +1,4 @@
-package com.qyk.hiltdemo.login
+package com.qyk.hiltdemo.ui.login
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
